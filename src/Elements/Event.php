@@ -1359,8 +1359,12 @@ class Event extends Element implements \JsonSerializable
             if (is_a($value, 'fruitstudios\linkit\base\Link')) {
                 $value = $value->getLink([], false);
             }
-
-            $fieldValues[$key] = $value;
+            
+            if (is_a($value, 'craft\fields\data\ColorData')) {
+                $fieldValues[$key] = $value->getHex();
+            } else {
+                $fieldValues[$key] = $value;
+            }
         }
 
         return array_merge($object, $fieldValues);
